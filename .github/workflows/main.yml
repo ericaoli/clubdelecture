@@ -18,19 +18,9 @@ jobs:
         with:
           node-version: 18  
 
-      
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-           ${{ runner.os }}-node-
-  
       - name: Install dependencies
-        run: npm ci
+        run: npm install
           
-
       - name: Create .env file
         run: |
           echo "DATABASE_HOST=$ {{ secrets.DATABASE_HOST }}" >> .env
@@ -47,9 +37,9 @@ jobs:
           exit 0   
           
       - name: Compile SCSS
-        run: npm run compile:scss
+        run: npx node-sass src/scss/main.scss public/css/main.css
 
-      - name: Build application
+      - name: Build project
         run: npm run build
 
       - name: Deploy to Render
