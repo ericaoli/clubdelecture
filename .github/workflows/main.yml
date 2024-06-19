@@ -1,0 +1,32 @@
+---
+  name: CI/CD Pipeline
+  on:
+    push:
+      branches:
+        - main
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+        - name: Set up Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: "14"
+        - name: Create .env file
+          run: |
+            echo "DATABASE_HOST=$ {{ secrets.DATABASE_HOST }}" >> .env
+            echo "DATABASE_USER=$ {{ secrets.DATABASE_USER }}" >> .env
+            echo "DATABASE_PASSWORD=$ {{ secrets.DATABASE_PASSWORD }}" >> .env
+            echo "DATABASE_BASE=$ {{ secrets.DATABASE_BASE }}" >> .env
+            echo "SECRET_SESSION=$ {{ secrets.SECRET_SESSION }}" >> .env
+            echo "PORT=$ {{ secrets.PORT }}" >> .env
+            echo "HOSTNAME=$ {{ secrets.HOSTNAME }}" >> .env
+        - name: Run tests
+          run: npm test
+        - name: Build project
+          run: npm run build
+        - name: Deploy to Render
+          run: curl -X POST "$ {{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+  
