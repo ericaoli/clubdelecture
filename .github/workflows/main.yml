@@ -35,9 +35,6 @@ jobs:
         run: |
           echo 'No tests specified'   
           exit 0   
-          
-      - name: Compile SCSS
-        run: npx node-sass src/scss/main.scss public/css/main.css
 
       - name: Build project
         run: npm run build
