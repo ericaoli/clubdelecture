@@ -1,0 +1,68 @@
+<%- include('header') -%>
+<div class="inscription"></div>
+        <section class="inscription_wrapper">
+            <article class="reglement">
+                <h1>Inscrivez-vous</h1> 
+                <h2>Conditions générales de participation et confidentialité des données</h2>
+                
+                <p>Fonctionalités exclusives  aux membres du Club de lecture:</p>
+                <ul>
+                    <li>Création de son profil personnel.</li>
+                    <li>Avoir sa propre bibliothèque avec la sélection de livres préférés.</li>
+                    <li>Commenter les livres proposés par le Club de lecture.</li>
+                    <li>Participer aux rencontres mensuelles.</li>
+                    <li>Participer aux choix des livres.</li>
+                </ul>
+                <p>Devenir un membre de “Brasil em Livros” est gratuit.</p>
+                <p>Nous ne faisons pas de commerce de livres ni des cours de portugais.</p>
+                <p>Tous les participants ont le droit de s’exprimer, indépendamment de leur niveau de portugais.</p>
+                <p>Les propositions racistes et discriminatoires ne seront pas tolérées.</p>
+                <p>Les données personnelles ne seront pas diffusées.</p>
+                <p>Vous pouvez, à tout moment, supprimer votre compte.</p>
+
+            </article>
+            <article class="form_flex">
+                <form method="post" class="inscription_form">
+                    <fieldset>
+                        <legend>Formulaire d'inscription</legend>
+                        <label for="firstname">Prénom</label>
+                        <input type="text" name="firstname" id="firstname"  class="input-error" placeholder="Prénom">
+                        <% if(locals.messageFirstname) { %>
+                            <p class="message_error"><%= messageFirstname %></p>
+                        <% } %>
+                        <label for="lastname">Nom</label>
+                        <input type="text" name="lastname" id="lastname" class="input-error" placeholder="Nom">
+                        <% if(locals.messageLastname) { %>
+                            <p class="message_error"><%= messageLastname %></p>
+                        <% } %>
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" class="input-error" placeholder="E-mail">
+                        <% if(locals.messageEmail) { %>
+                            <p class="message_error"><%= messageEmail%></p>
+                        <% } %>
+                        <% if(locals.messageEmailRegister) { %>
+                            <p class="message_error"><%= messageEmailRegister%></p>
+                        <% } %>
+                        <label for="password">Mot de passe</label>
+                        <input type="password" name="password" id="password" class="input-error" placeholder="Veuillez enregistrer 8 caractères">
+                        <% if(locals.messagePassword) { %>
+                            <p class="message_error"><%= messagePassword%></p>
+                        <% } %>
+                        
+                        <div class="flex_conditions">
+                            <input type="checkbox" role="checkbox" name="conditions" id="conditions"> 
+                            <label for="conditions" class="flex_conditions">J’ai lu et j’accepte les conditions de participation et la confidentialité des données.</label>
+                        </div>
+                        
+                        <% if(locals.message) { %>
+                            <p class="message_error"><%= message %></p>
+                        <% } %>
+
+                        <button type="submit" class="submit-button">Je m'inscris</button>
+                        
+                    </fieldset>
+                </form>
+            </article>
+        </section>
+<script src="/javascript/formulaire.js"></script>
+<%- include('footer') -%>

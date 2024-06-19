@@ -1,0 +1,979 @@
+/* imports */ 
+@import 'resets';
+@import 'variables';
+@import 'mixins';
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&family=Poppins&display=swap" rel="stylesheet');
+
+
+/* MOBILE-FIRST*/
+
+/* généralités */ 
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    background-color: $secondary-color;
+}
+main {
+    flex: 1; 
+}
+footer {
+    padding: 10px;
+}
+.container {
+    max-width: 100%;
+    h1, h2, h3 {
+        @include main_title;
+    }
+    p {
+        @include text;
+    }
+}
+
+/****** NAVBAR*****/
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+    height: 70px;
+    background-color: $primary-color;
+    z-index: 4;
+}
+.navbar.is-active {
+    width: 100%;
+    padding-top: 1.5rem;
+    min-height: 100vh;
+}
+.main-navlinks{
+    display: flex;
+    a {
+        padding-right: 2rem;
+    }
+}
+.navlinks-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.nav_login {
+    font-size: 1.8rem;
+}
+.nav_login_desktop{
+    display: none;
+}
+.menu, .menu_scrolling_options {
+    @include menu;
+    font-size: 1.2rem;
+    &.backdrop {
+        font-size: 1rem;
+
+    }
+    &:hover {
+        color: $link_title-color;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
+.navbar li {
+    list-style-type: none;
+}
+.logo{
+    @include logo;
+    &__title {
+        font-family: $nunito-sans;
+        color: $link_title-color;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+    &__subtitle {
+        font-family: $poppins;
+        color: $text-color;
+    }
+} 
+.menu_backdrop{
+    margin-top: 1rem;
+    li {
+        padding: 0.5rem;
+    }
+}
+.menu_backdrop, 
+.navlinks-container {
+    display: none;
+    text-align: right;
+        
+}
+.menu_scrolling_options {
+    @include menu;
+    font-size: 1.2rem;
+}
+.navlinks-wrapper li{
+    padding: 1rem;
+}
+/*classe css - insertion avec javascript*/
+.show-links {
+    display: block;
+}
+/*  **** hamburger navbar *******  */
+.hamburger {
+    position: relative;
+    display: block;
+    width: 35px;
+    height: 35px;
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.hamburger .bar, .hamburger::before, .hamburger::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+.hamburger.is-active::before {
+    transform: rotate(-45deg) translate(-9px, 4px);
+}
+.hamburger.is-active .bar {
+    opacity: 0;
+}
+.hamburger.is-active::after {
+    transform: rotate(45deg) translate(-9px, -4px);
+}
+/* page home */
+.homepage {
+    background-image: url("/images/accueil.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100vh - 160px);
+    width: 100%;
+    text-align: center;
+    p{
+        @include text;
+        text-align: center;
+    }
+    button {
+        @include button;
+        font-size: 1.5rem;
+        margin-top: 3rem;
+        padding: 1rem 1.5rem;
+    }
+}
+.block_home{
+    width: 100%;
+    padding-top: 90px;
+    & p:last-child {
+        margin-top: 3rem;
+    }
+}
+.home {
+    color: $text-color;
+    text-align: center;
+    @include logo;
+    &_title{
+        @include main_title;
+        font-size: 2.5rem;
+    }
+    &_subtitle {
+        font-family: $poppins;
+    }
+}
+
+.btn_home {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    margin: 1rem auto;
+    background-color: $link_title-color;
+    font-family: $nunito-sans;
+    font-size: 1.6rem;
+    border-radius: 15px;
+    text-decoration: none;
+    color: $secondary-color;
+ 
+    &:hover {
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+}
+
+/* page about */
+.a-propos {
+    background-image: url("/images/a_propos.webp");
+    background-position: bottom;
+    @include background-image;
+}
+.container.about {
+    max-width: 100%;
+    height: calc(100vh - 300px);
+}
+.about_container {
+    margin: auto;
+}
+.video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+}
+
+/* page readings */
+.books {
+    background-image: url("/images/nos_lectures.webp");
+    background-position: top;
+    @include background_image;  
+}
+.container_books {
+    max-width: 100%;
+    font-size: 1rem;
+    z-index: 1;
+    & h1, h2, label{
+        @include main_title;
+        font-size: 1.5rem;
+        margin: 2rem 1rem;
+    }
+}
+.books_gallery {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: auto;
+    justify-content: center;
+    row-gap: 40px;
+    align-items: end;
+    margin-bottom: 3rem;
+}
+.cover_book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & figure{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        & img {
+            width: 150px;
+            height: 240px;
+        }
+        & figcaption {
+            color: $text-color;
+            font-family: $poppins;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            width: 150px;
+            height: 20px;
+            
+        }
+    }
+    & .btn_admin {
+        text-decoration: none;
+        color: $primary-color;
+        @include button_form;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+}
+#contemporary,
+#classic {
+    @include main_title;
+    display: none;
+}
+.btn {
+    @include button;
+    text-decoration: none;
+    color: $secondary-color;  
+ 
+    &:hover {
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+}
+/* page details_readings */
+.details_cover {
+    & img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    }
+}
+.informations {
+    font-family: $poppins;
+    color: $link_title-color;
+    width: 100%;
+}
+.comments {
+    max-width: 100%;
+    & h3 {
+        color: $link_title-color;
+        font-family: $nunito-sans;
+        margin: 2rem;
+    }
+}
+.id_comment {
+    max-width: 100%;
+    margin: 2rem;
+    height: auto;
+    // display: grid;
+    // grid-template-rows: repeat (3, 50px);
+    // grid-template-columns: 1fr;
+    border-bottom: 1px solid $link_title-color;
+    & button {
+        @include button_form;
+    }
+}
+.technical_informations,
+.id_comment {
+    margin: 1rem;
+    & p {
+         @include text;
+    }
+}
+
+.like {
+    float: right;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    & i {
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+        position: absolute;    
+    }
+    & button {
+        font-family: $nunito-sans;
+        font-size: 0.8rem;
+        margin-top: 2rem;
+        border-radius: 15px;
+    }
+}
+
+/* page contact */
+.contact {
+    background-image: url('/images/contact.webp');
+    background-position-y: center;
+    @include background_image; 
+}
+.container._contact{
+    margin: 1rem;
+}
+/* page inscription */
+.inscription {
+    background-image: url('/images/inscription.webp');
+    background-position-y: bottom;
+    background-position-x: center;
+     @include background_image;
+}
+.inscription_wrapper {
+    max-width: 90%;
+    height: auto;
+    margin: 2rem auto;
+    & h1{
+        @include main_title;
+    }
+    & h2 {
+        color: $link_title-color;
+        font-weight:400;
+        text-align: center;
+        line-height: 1.5;
+        margin: 3rem 1rem 0;
+        font-size: 1rem;
+    }
+}
+.reglement {
+    @include text;
+    max-width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    & ul{
+        max-width: 100%;
+    }  
+}
+.form_flex {
+    width: 100%;
+}
+.flex_conditions{
+    display: flex;
+    gap: 10px;
+    line-height: 1.3;
+    font-family: $poppins;
+    font-size: 0.7rem;
+    color: $text-color;
+}
+.inscription_form,
+.form_comment,
+.form_contact,
+.form_connexion
+ {
+    margin: auto;
+    @include form;
+    & fieldset {
+    @include fieldset;
+    background-color: $primary-color;
+    flex-direction: column;
+    & legend {
+        @include legend;
+        background-color: $primary-color;
+        @include main_title;
+    }
+    & label {
+        @include label;
+    }
+    & button {
+        @include button_form;
+    }
+    & input {
+        @include input;
+        box-sizing: border-box;
+    }
+    & input[type="file"] {
+        border-radius: 15px;
+        font-family: $nunito-sans;
+        color: $link_title-color;
+    }
+    & textarea {
+        @include input;
+        margin-top: 1rem;
+    }
+    & .message_error {
+    @include message;
+    }
+    }
+}
+.book_form {
+    &form {
+        @include form;
+    }
+    & fieldset {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid $link_title-color;
+        border-radius: 15px;
+    }
+    & label {
+        @include label;
+    }
+    & legend {
+       @include legend;
+       color: $link_title-color;
+       font-family: $nunito-sans;
+    }
+    & input, & textarea {
+        border-radius: 10px;
+        padding: 0.5rem;
+        overflow-y: scroll;
+    }
+    & input[type="file"] {
+        color: $link_title-color;
+    }
+    & button {
+        @include button_form;
+    }
+    & .message_error {
+        @include message;
+        }
+        
+}
+
+/* page connexion */
+.connexion {
+    background-image: url('/images/inscription.webp');
+    background-position-y: bottom;
+    background-position-x: center;
+    @include background_image;
+}
+.container.connect {
+    width: 90%;
+    min-height: 100vh;
+    margin: auto;
+
+}
+
+/* page user */
+.user {
+    background-image: url('/images/espace_personnel.webp');
+    background-position-y: top;
+    background-position-x: center;
+    @include background_image;
+}
+.ident{
+    clear: both;
+    width: 100%;
+    margin: 1rem;
+}
+
+.logout {
+   float: right;
+   margin-right: 1rem;
+   margin-bottom: 2rem;
+   width: 100%;
+   text-align: right;
+    & a {
+        @include main_title;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+    & i {
+        color: $link_title-color;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+    }
+}
+
+/* page admin */
+.admin {
+    background-image: url('/images/admin.webp');
+    background-position-y: center;
+    background-position-x: center;
+    @include background_image;
+    max-width: 100%;
+}
+.container.admin_page {
+    width: 90%;
+    margin: 1rem auto;
+    & h2 {
+        text-align: left;
+        margin-left: 1rem;
+    }
+    & li {
+        line-height: 1.8;
+    }
+    & a{
+        @include menu;
+        font-size: 1.2rem;
+    }
+    & i{
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
+}
+.book_form_delete {
+    &fieldset {
+        height: 400px;
+        overflow-y: scroll; 
+    }
+    &.flex_form_delete {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+    }   
+}
+.delete_comment {
+    border: 1px solid $link_title-color;
+    border-radius: 15px;
+    background-color: $primary-color;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    & button {
+        @include button_form;
+    }
+}
+
+/* page edit_book*/
+.edit_book {
+    margin-bottom: 2rem;
+}
+
+select {
+    @include input;
+}
+/* footer */ 
+.foot{
+    background-color: $primary-color;
+    font-family: $nunito-sans;
+    text-align: center;
+    height: fit-content;
+    padding: 1rem;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+  
+}
+.medias{
+    text-align: center;
+    color: $link_title-color;
+    
+    i{
+        font-size: 1.5rem;
+        padding: 0 0.5rem 1rem 0.5rem ;
+    }
+}
+
+
+/* Version TABLETTE */
+@media screen and (min-width: 481px) and (max-width: 960px){
+
+    /* page HOME */
+    .homepage {
+        background-position:center;
+        height: calc(100vh - 90px);
+        
+            p{
+               font-size: 1.2rem;
+            }
+            button {
+                margin-top: 30px;
+            }
+        .block_home {
+            padding-top: 60px;
+        }
+        }
+
+    /* page ABOUT */
+    .a-propos {
+            height: 200px;
+            background-position: bottom;
+            margin-top: 80px;
+        }
+    .about_container {
+            width: 70%;
+            display: block;
+            margin: auto;
+        }
+
+    /* FOOTER */ 
+    .foot {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+    /* page READINGS */
+    .books_gallery {
+            grid-template-columns: repeat(2, 1fr);
+            margin: 2rem;
+        }
+    .cover_book {
+            & img {
+                width: 100%;
+            }
+    
+            & figcaption {
+                max-width: 100%;
+                height: 70px;
+            }
+        }
+    .card {
+        background-color: $primary-color;
+        padding: 2rem 0;
+        border-radius: 10px;
+        width: 80%;
+        height: 80%;
+        margin: auto;
+            
+            &:hover {
+                box-shadow: 0 8px 16px 0 rgb(249, 248, 248);
+                transition: 0.3s;
+            }
+        }
+
+    /* page DETAILS_READINGS */
+    .details {
+            width: 90%;
+            margin: auto;
+        }
+    .technical_informations {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            height: auto;
+            margin: 5rem auto;
+        }
+    .details_cover {
+            & img {
+            width: 350px;
+            height: auto;
+            }
+        }
+    .editor_informations {
+            width: 100%;
+            height: auto;
+        }
+    .description {
+            width: 95%;
+            height: 200px;
+            overflow-y: scroll;
+            padding-right: 1rem;
+        }
+    .technical_informations {
+        display: flex;
+        width: 80%;
+        margin: auto;
+        padding: 2rem;
+        border-radius: 15px;
+        background-color: $primary-color;
+        }
+    .comments {
+            height: 400px;
+            overflow-y: scroll;
+            margin: 1rem;
+        }
+
+    /* page CONTACT */
+    .container._contact{
+            margin: 2rem ;
+        }
+
+    /* page INSCRIPTIONS */
+    .inscription_wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: center;
+        }
+    .inscription_form {
+                height: 450px;
+                &fieldset {
+                    margin-top: 3rem;
+                }
+        }
+    .form_flex{
+            height: 400px;
+            margin-bottom: 8rem;
+        }
+    .reglement {
+        max-width: 100%;
+        background-color: $primary-color;
+        border-radius: 15px;
+        padding: 1rem 2rem;
+        height: 600px;
+        }
+
+    /* page CONNEXION */
+    .form_connexion {
+            max-width: 100%;
+        }
+
+}
+
+
+
+/* Version DESKTOP*/
+@media screen and (min-width: 961px) {
+
+    /* BARRE DE NAVIGATION*/
+        .main-navlinks{
+            display: none;
+        };
+        .navlinks-wrapper{
+            display: flex;
+        }
+        .navlinks-container {
+            display: block;
+    
+            .connect, .disconnect {
+                display: none;
+            }  
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: $primary-color;
+            z-index: 3;
+        }
+        .nav_login_desktop{
+            display: block;
+            font-size: 1.5rem;
+        }
+        .menu_backdrop{
+            background-color: $primary-color;
+            width: fit-content;
+            bottom: 1;
+            position: absolute;
+            margin-top: 10px;
+            padding: 0;
+            z-index: 3;
+
+            &:hover{
+                color: $link_title-color;
+                cursor: pointer;
+            }
+        }
+        .menu .menu_scrolling_options{
+            position: relative;
+
+        }
+    /* FOOTER */ 
+    .foot {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 4rem;
+        }
+    /* page ABOUT */
+    .a-propos {
+            height: 200px;
+            background-position: bottom;
+            margin-top: 80px;
+    }
+    .about_container {
+            width: 50%;
+            display: block;
+            margin: auto;
+    }
+
+    /* page HOME */
+    .homepage {
+            background-position:center;
+            height: calc(100vh - 90px);
+        
+            p{
+               font-size: 1.5rem;
+            }
+            button {
+                margin-top: 30px;
+            }
+        }
+
+    /* page READINGS */
+    .books_gallery {
+            grid-template-columns: repeat(4, 1fr);
+            margin: 2rem;
+        }
+    .cover_book {
+            & img {
+                width: 100%;
+            }
+    
+            & figcaption {
+                max-width: 100%;
+                height: 70px;
+            }
+        }
+    .card {
+            background-color: $primary-color;
+            padding: 2rem 0;
+            border-radius: 10px;
+            width: 80%;
+            height: 80%;
+            margin: auto;
+            
+            &:hover {
+                box-shadow: 0 8px 16px 0 rgb(249, 248, 248);
+                transition: 0.3s;
+            }
+        }
+
+    /* page DETAILS_READINGS */
+    .details {
+            width: 80%;
+            margin: auto;
+        }
+    .technical_informations {
+            display: flex;
+            align-items: center;
+            width: 80%;
+            height: auto;
+            margin: 5rem auto;
+        }
+    .details_cover {
+            & img {
+            width: 350px;
+            height: auto;
+            }
+        }
+    .editor_informations {
+            width: 80%;
+            height: auto;
+        }
+    .description {
+            width: 95%;
+            height: 200px;
+            overflow-y: scroll;
+            padding-right: 1rem;
+        }
+    .technical_informations {
+        display: flex;
+        width: 80%;
+        margin: auto;
+        padding: 2rem;
+        border-radius: 15px;
+        background-color: $primary-color;
+    
+        }
+    .form_comment {
+            width: 80%;
+            margin: 1rem auto;
+        }
+    .comments {
+            height: 450px;
+            overflow-y: scroll;
+            margin: 1rem;
+        }
+
+    /* page CONTACT */
+    .container._contact{
+            margin: 1rem auto;
+        }
+    .form_contact {
+            width: 800px;
+        }
+
+    /* page INSCRIPTIONS */
+    .inscription_wrapper {
+            display: flex;
+            height: 600px;
+            gap: 2rem;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+    .inscription_form {
+            height: 450px;
+            margin: 0;
+            &fieldset {
+                margin-top: 3rem;
+            }
+        }
+    .form_flex{
+            height: 400px;
+            margin-bottom: 8rem;
+        }
+    .reglement {
+            width: 100%;
+            background-color: $primary-color;
+            overflow-y: scroll;
+            border-radius: 15px;
+            padding: 1rem 2rem 1rem;
+            height: 450px;
+            & * {
+                padding-right: 1rem;
+            }
+        }
+
+    /* page connexion */
+    .form_connexion {
+            width: 50%;
+            margin: auto;
+        }
+}
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+<%- include('header') -%>
+<div class="books"></div>
+<!-- Section contenant les détails des livres. -->
+    <section class="container_books"> 
+        <!-- Boucle for : Parcours et affichage de chaque livre dans le tableau books. -->
+        <% for(let i=0; i < books.length; ++i) { %>
+            <h1 lang="pt-br"><%= books[i].title %></h1>
+            <!-- Article contenant les détails du livre. -->
+            <article class="details">
+                <h2 lang="pt-br">Saiba mais sobre esse livro:</h2> 
+                <div class="technical_informations">
+                    <div class="details_cover">
+                        <!-- Conteneur de l'image de couverture du livre. -->
+                        <img src="/images/<%= books[i].url_cover_image %>" alt="<%= books[i].alt_text %>">
+                    </div>
+                <div class="editor_informations">
+                    <% if (locals.user) { %>
+                        <!-- si l'utilisateur est enregistré et connecté il a le formulaire like -->
+                        <form  class="like"  method="POST" action="/details_readings/<%= books[i].id_book %>/like">
+                            <!-- pour récuperer l'id du livre -->
+                            <input type="hidden" name="id" value="<%= books[i].id_book %>">
+                            <i class="fa-solid fa-heart" style="color: #f74408;"></i> <button type="submit">Like</button>
+                        </form>
+                    <% } %>
+                        <h2 lang="pt-br">Ficha técnica:</h2>
+                        <p lang="pt-br"><span class="informations">Apresentado no clube em:</span> <%= books[i].date_reading_club.toLocaleDateString() %></p>
+                        <p lang="pt-br"><span class="informations">Título:</span> <%= books[i].title %></p>
+                        <p lang="pt-br"><span class="informations">Autor:</span> <%= books[i].firstname + " " + books[i].lastname %></p>
+                        <p lang="pt-br"><span class="informations">Editora:</span> <%= books[i].name %></p>
+                        <p lang="pt-br"><span class="informations">ISBN: </span> <%= books[i].isbn %></p>
+                        <p lang="pt-br"><span class="informations">Ano de publicação:</span> <%= books[i].publication_year %></p>
+                        <p lang="pt-br" class="description"><span class="informations">Descrição:</span> <%= books[i].description %></p>
+                </div>
+            </div>
+        </article>
+        <% } %>  
+    </section>
+    <section  class="container container_books">
+        <h2 lang="pt-br">Opinião dos leitores</h2>
+        <article class="comments">
+            <h3 lang="pt-br">Comentários sobre a leitura:</h3>
+            <!-- Boucle for : parcours et affichage de chaque commentaire dans le tableau comments. -->
+            <% for(let i=0; i < comments.length; ++i) { %>
+                <div class="id_comment"> 
+                    <p lang="pt-br"><span class="informations reader">Leitor: </span> <%= comments[i].firstname %></p>
+                    <p lang="pt-br"><span class="informations date">Data: </span> <%= comments[i].date_added.toLocaleDateString() %></p>
+                    <p lang="pt-br"><span class="informations comment">Comentário: </span> <%= comments[i].comment %></p>
+                </div>
+            <% } %>  
+            <!-- Vérifie si un utilisateur ou l'administrateur est connecté. -->
+            <% if (locals.user || locals.admin) { %>
+                <!-- Formulaire permettant aux utilisateurs connectés de commenter le livre. -->
+                <form method="post" class="form_comment">
+                    <fieldset>
+                        <legend lang="pt-br"> Comente o livro</legend>
+                        <textarea name="text" class="input-error" id="text" cols="30" rows="5" placeholder="Escreva aqui o seu comentário" lang="pt-br"></textarea>
+                        <button type="submit" lang="pt-br">Dê a sua opinião</button>
+                        <!-- Un message d'erreur spécifique est affiché en cas de non validation -->
+                        <% if(locals.message) { %>
+                            <p class="message_error"><%= message%></p>
+                        <% } %>
+                    </fieldset>
+                </form>
+            <% } %>
+        </article>
+    </section>  
+<script src="/javascript/formulaire.js"></script>
+<%- include('footer') -%>
