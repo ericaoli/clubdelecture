@@ -16,12 +16,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'  
+          node-version: 18  
 
+      
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+           ${{ runner.os }}-node-
+  
       - name: Install dependencies
-        run: |
-          npm install
-          npm install node-sass   # Instalação específica do node-sass
+        run: npm ci
+          
 
       - name: Create .env file
         run: |
@@ -35,13 +43,14 @@ jobs:
 
       - name: Run tests
         run: |
-          echo 'No tests specified'   # Ajuste temporário, se não há testes
-          exit 0                      # Sair com código 0 para evitar falha por falta de testes
+          echo 'No tests specified'   
+          exit 0   
+          
+      - name: Compile SCSS
+        run: npm run compile:scss
 
-      - name: Build project
-        run: |
-          npm run compile:scss   # Executa a compilação do SCSS
-          # Adicione outros comandos de build necessários, como `npm run migrate` se aplicável
+      - name: Build application
+        run: npm run build
 
       - name: Deploy to Render
         run: |
